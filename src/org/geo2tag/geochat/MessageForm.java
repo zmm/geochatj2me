@@ -50,7 +50,7 @@ public class MessageForm extends Form implements ItemStateListener{
 	private Vector m_subscribedChannels = new Vector();
 	
 	public MessageForm(){
-		super("Chat");
+		super("WriteMessage");
 		addCommand(m_cancelCommand);		
 		addCommand(m_okCommand);	
 
@@ -69,7 +69,7 @@ public class MessageForm extends Form implements ItemStateListener{
 		}
 	}
 	
-	public void retrieveChannels(){
+	private void retrieveChannels(){
 		
 		
 		JsonAvailableChannelsRequest req = 
@@ -135,6 +135,18 @@ public class MessageForm extends Form implements ItemStateListener{
 		// TODO Auto-generated method stub
 		// Do subscribe actions for selected channel
 		
+		subscribeSelectedChannel();
+		
+		
+	}
+
+	public void initForm(){
+		retrieveChannels();
+		subscribeSelectedChannel();
+	}
+	
+	private void subscribeSelectedChannel(){
+		System.out.println("subscribeSelectedChannel()");
 		
 		String channel = m_channelsSelector.getString(m_channelsSelector.getSelectedIndex());
 		
@@ -144,7 +156,7 @@ public class MessageForm extends Form implements ItemStateListener{
 				new JsonSubscribeRequest(GCState.getAuthToken(), channel, Settings.getServerUrl());
 		JsonSubscribeResponse res = new JsonSubscribeResponse();
 		
-		int[] errnos = {Errno.SUCCESS.intValue()};
+		int[] errnos = {Errno.SUCCESS.intValue(), Errno.CHANNEL_ALREADY_SUBSCRIBED_ERROR.intValue()};
 		
 		try {
 			RequestSender.performRequest(req, res, errnos);
@@ -157,8 +169,6 @@ public class MessageForm extends Form implements ItemStateListener{
 			System.out.println("SubscribeChannel failed!");
 			e.printStackTrace();
 		}
-		
 	}
-
 
 }

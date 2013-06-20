@@ -45,7 +45,7 @@ public class MainMidlet extends MIDlet  {
 				// Going to MessageForm
 				System.out.println("ITEM action from TagsList pressed!!!!");
 				m_tagsList.stopTagsListUpdate();
-				m_messageForm.retrieveChannels();
+				m_messageForm.initForm();
 				m_display.setCurrent(m_messageForm);
 				
 			}else if (arg0.getLabel() == TagsList.REFRESH && arg1.getClass() == TagsList.class){
