@@ -9,6 +9,7 @@ import javax.microedition.midlet.MIDlet;
 import javax.microedition.midlet.MIDletStateChangeException;
 
 import org.geo2tag.geochat.utils.GCState;
+import org.geo2tag.geochat.utils.Settings;
 
 public class MainMidlet extends MIDlet  {
 
@@ -16,6 +17,8 @@ public class MainMidlet extends MIDlet  {
 	private LoginForm m_loginForm = new LoginForm();
 	private MessageForm m_messageForm = new MessageForm();
 	private TagsList m_tagsList = new TagsList();
+	private SettingsForm m_settingsForm = new SettingsForm();
+	
 	private Display m_display = Display.getDisplay(this);
 	
 	
@@ -64,6 +67,25 @@ public class MainMidlet extends MIDlet  {
 				m_messageForm.sendMessage();
 				m_display.setCurrent(m_tagsList);
 				
+			}else if (arg0.getLabel() == TagsList.SETTINGS ){
+				
+				System.out.println("Going to settingsForm");
+				m_tagsList.stopTagsListUpdate();
+				
+				m_settingsForm.initForm();
+				m_display.setCurrent(m_settingsForm);
+				
+			}else if ( arg1.getClass() == SettingsForm.class){
+				
+				System.out.println("Going back to tagsList");
+				
+				if (arg0.getCommandType() == Command.OK){
+					System.out.println("Saving settings");
+					m_settingsForm.saveSettings();
+				}
+				m_tagsList.startTagsListUpdate();
+				m_display.setCurrent(m_tagsList);
+				
 			}
 		}
 	}; 
@@ -72,12 +94,14 @@ public class MainMidlet extends MIDlet  {
 	public MainMidlet() {
 		// TODO Auto-generated constructor stub
 		setupCommandListeners();
+		Settings.initSettings();
 	}
 
 	private void setupCommandListeners(){
 		m_loginForm.setCommandListener(m_commandListener);
 		m_tagsList.setCommandListener(m_commandListener);
 		m_messageForm.setCommandListener(m_commandListener);
+		m_settingsForm.setCommandListener(m_commandListener);
 	}
 	
 	protected void destroyApp(boolean arg0) throws MIDletStateChangeException {

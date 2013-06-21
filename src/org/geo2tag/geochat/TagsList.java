@@ -32,8 +32,9 @@ import com.nokia.mid.ui.IconCommand;
 public class TagsList extends List {
 
 	
-	public static String WRITE_MESSAGE = "WriteMessage";
-	public static String REFRESH = "Refresh";
+	public static final String WRITE_MESSAGE = "WriteMessage";
+	public static final String REFRESH = "Refresh";
+	public static final String SETTINGS = "Settings";
 	
 	private Timer m_timer = new Timer();
 	
@@ -47,6 +48,7 @@ public class TagsList extends List {
 	private IconCommand m_backCommand = new IconCommand("Back", Command.BACK, 0, IconCommand.ICON_BACK);
 	private Command m_writeMessageCommand = new Command(WRITE_MESSAGE, Command.HELP, 1);
 	private Command m_refreshCommand = new Command(REFRESH, Command.HELP, 2);
+	private Command m_settingsCommand = new Command(SETTINGS, Command.HELP, 3);
 	
 	public TagsList(){
 		this("",List.IMPLICIT);
@@ -55,6 +57,7 @@ public class TagsList extends List {
 		addCommand(m_backCommand);
 		addCommand(m_writeMessageCommand);
 		addCommand(m_refreshCommand);
+		addCommand(m_settingsCommand);
 	}
 	
 	public TagsList(String arg0, int arg1) {
@@ -64,14 +67,16 @@ public class TagsList extends List {
 	
 	public void startTagsListUpdate(){
 		if (Settings.isPeriodicalUpdateEnabled())
-			m_timer.schedule(m_timerTask, 0, Settings.getUpdateInterval());
+			m_timer.schedule(m_timerTask, Settings.getUpdateInterval()*1000);
 		else 
 			refreshData();
 	}
 	
 	public void stopTagsListUpdate(){
-		if (Settings.isPeriodicalUpdateEnabled())
+		if (Settings.isPeriodicalUpdateEnabled() )
 			m_timer.cancel();
+		
+		
 	}
 	
 	private void setTags(Vector tags){
