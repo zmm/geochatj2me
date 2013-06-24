@@ -11,27 +11,18 @@ import javax.microedition.midlet.MIDlet;
 import javax.microedition.midlet.MIDletStateChangeException;
 
 import org.geo2tag.geochat.utils.GCState;
+import org.geo2tag.geochat.utils.StringConstants;
 
 public class MainMidlet extends MIDlet  {
 
-	
-	private static final String ABOUT_HEADER = "About";
-	private static final String ABOUT_TEXT = "GeoChat v0.1 (c) OSLL, 2013";
-	private static final String HELP_HEADER = "Help";
-	private static final String HELP_TEXT = "Main features: - Display of nearest user's messages";
-	
-	protected static final String EXIT_COMMAND = "Exit";
-	protected static final String ABOUT_COMMAND = "About";
-	protected static final String HELP_COMMAND = "Help";
-	
 	
 	private LoginForm m_loginForm = new LoginForm();
 	private MessageForm m_messageForm = new MessageForm();
 	private TagsList m_tagsList = new TagsList();
 	private Display m_display = Display.getDisplay(this);
 	
-	private TextForm m_aboutForm = new TextForm(ABOUT_HEADER, ABOUT_TEXT);
-	private TextForm m_helpForm = new TextForm(HELP_HEADER, HELP_TEXT);
+	private TextForm m_aboutForm = new TextForm(StringConstants.ABOUT_HEADER, StringConstants.ABOUT_TEXT);
+	private TextForm m_helpForm = new TextForm(StringConstants.HELP_HEADER, StringConstants.HELP_TEXT);
 	
 	private CommandListener m_commandListener = new CommandListener() {
 		
@@ -52,13 +43,13 @@ public class MainMidlet extends MIDlet  {
 			}else if (arg0.getCommandType() == Command.BACK ){
 				goBackWithMemorizing();
 					
-			}else if (arg0.getLabel() == TagsList.WRITE_MESSAGE_COMMAND ){
+			}else if (arg0.getLabel() == StringConstants.WRITE_MESSAGE_COMMAND ){
 				// Going to MessageForm
 				System.out.println("ITEM action from TagsList pressed!!!!");
 				m_messageForm.initForm();
 				goForwardWithMemorizing(m_messageForm);
 				
-			}else if (arg0.getLabel() == TagsList.REFRESH_COMMAND ){
+			}else if (arg0.getLabel() == StringConstants.REFRESH_COMMAND ){
 				
 				m_tagsList.refreshData();
 				
@@ -70,20 +61,13 @@ public class MainMidlet extends MIDlet  {
 				
 			}else if (arg0.getCommandType() == Command.EXIT){
 				notifyDestroyed();
-			}else if (arg0.getLabel() == ABOUT_COMMAND){
+			}else if (arg0.getLabel() == StringConstants.ABOUT_COMMAND){
 				goForwardWithMemorizing(m_aboutForm);
-			}else if (arg0.getLabel() == HELP_COMMAND){
+			}else if (arg0.getLabel() == StringConstants.HELP_COMMAND){
 				goForwardWithMemorizing(m_helpForm);
 			}
 		}
-		
-		
-		
-		private void goToTagsList(){
-			m_tagsList.startTagsListUpdate();
-			m_display.setCurrent(m_tagsList);
-		}
-		
+				
 		private void goBackWithMemorizing(){
 			Displayable back = (Displayable) m_stack.pop();
 			if (back instanceof TagsList)
