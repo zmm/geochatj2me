@@ -32,21 +32,32 @@ import com.nokia.mid.ui.IconCommand;
 public class TagsList extends List {
 
 	
-	public static String WRITE_MESSAGE = "WriteMessage";
-	public static String REFRESH = "Refresh";
+	public static String WRITE_MESSAGE_COMMAND = "WriteMessage";
+	public static String REFRESH_COMMAND = "Refresh";
+	public static final String ABOUT_COMMAND = "About";
+	public static final String HELP_COMMAND = "Help";
+	public static final String EXIT_COMMAND = "Exit";
+
 	
 	private Timer m_timer = new Timer();
 	
-	private TimerTask m_timerTask = new TimerTask() {
-	    public void run() {
+	private class CustomTimerTask extends TimerTask{
+			    public void run() {
 	    		refreshData();
 	    }
-	};
+	}
+	
+	private TimerTask m_timerTask = new CustomTimerTask(); 
 	
 	
 	private IconCommand m_backCommand = new IconCommand("Back", Command.BACK, 0, IconCommand.ICON_BACK);
-	private Command m_writeMessageCommand = new Command(WRITE_MESSAGE, Command.HELP, 1);
-	private Command m_refreshCommand = new Command(REFRESH, Command.HELP, 2);
+	private Command m_writeMessageCommand = new Command(WRITE_MESSAGE_COMMAND, Command.HELP, 1);
+	private Command m_refreshCommand = new Command(REFRESH_COMMAND, Command.HELP, 2);
+	
+	private Command m_aboutCommand = new Command(ABOUT_COMMAND, Command.HELP, 3);
+	private Command m_helpCommand = new Command(HELP_COMMAND, Command.HELP, 4);
+	private Command m_exitCommand = new Command(EXIT_COMMAND, Command.EXIT, 5);
+
 	
 	public TagsList(){
 		this("",List.IMPLICIT);
@@ -55,6 +66,9 @@ public class TagsList extends List {
 		addCommand(m_backCommand);
 		addCommand(m_writeMessageCommand);
 		addCommand(m_refreshCommand);
+		addCommand(m_aboutCommand);
+		addCommand(m_helpCommand);
+		addCommand(m_exitCommand);
 	}
 	
 	public TagsList(String arg0, int arg1) {
@@ -70,8 +84,11 @@ public class TagsList extends List {
 	}
 	
 	public void stopTagsListUpdate(){
-		if (Settings.isPeriodicalUpdateEnabled())
+		if (Settings.isPeriodicalUpdateEnabled()){
 			m_timer.cancel();
+			m_timer = new Timer();
+			m_timerTask = new CustomTimerTask();
+		}
 	}
 	
 	private void setTags(Vector tags){

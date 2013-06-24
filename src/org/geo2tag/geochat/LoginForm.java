@@ -22,16 +22,25 @@ import ru.spb.osll.json.RequestSender;
  */
 public class LoginForm extends Form {
 
-	
-	
+	public static final String EXIT_COMMAND = "Exit";
+	public static final String ABOUT_COMMAND = "About";
+	public static final String HELP_COMMAND = "Help";
 	
 	private TextField m_loginText = new TextField("UserName", "Mark", 20, TextField.ANY);
 	private TextField m_passwordText = new TextField("Password", "test", 20, TextField.PASSWORD);
 	private Command m_okCommand = new Command("Ok", Command.OK, 1);
+	private Command m_exitCommand = new Command(EXIT_COMMAND, Command.EXIT, 1);
+	
+	private Command m_aboutCommand = new Command(ABOUT_COMMAND, Command.HELP, 3);
+	private Command m_helpCommand = new Command(HELP_COMMAND, Command.HELP, 4);
 	
 	public LoginForm(){
 		super("Login");
 		addCommand(m_okCommand);
+		addCommand(m_exitCommand);
+		addCommand(m_aboutCommand);
+		addCommand(m_helpCommand);
+		
 		append(m_loginText);
 		append(m_passwordText);
 	}
