@@ -47,7 +47,7 @@ public class TagsList extends List {
 	private TimerTask m_timerTask = new CustomTimerTask(); 
 	
 	
-	private IconCommand m_backCommand = new IconCommand(StringConstants.BACK, Command.BACK, 0, IconCommand.ICON_BACK);
+	private IconCommand m_backCommand = new IconCommand(StringConstants.BACK_COMMAND, Command.BACK, 0, IconCommand.ICON_BACK);
 	private Command m_writeMessageCommand = new Command(StringConstants.WRITE_MESSAGE_COMMAND, Command.HELP, 1);
 	private Command m_refreshCommand = new Command(StringConstants.REFRESH_COMMAND, Command.HELP, 2);
 	

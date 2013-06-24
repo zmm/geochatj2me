@@ -9,7 +9,7 @@ package org.geo2tag.geochat.utils;
  */
 public class StringConstants {
 
-	public static final String BACK = "Back";
+	public static final String BACK_COMMAND = "Back";
 	public static final String OK_COMMAND = "Ok";
 	public static final String WRITE_MESSAGE_COMMAND = "WriteMessage";
 	public static final String REFRESH_COMMAND = "Refresh";
@@ -21,7 +21,7 @@ public class StringConstants {
 	public static final String ABOUT_HEADER = "About";
 	public static final String ABOUT_TEXT = "GeoChat v0.1 (c) OSLL, 2013";
 	public static final String HELP_HEADER = "Help";
-	public static final String HELP_TEXT = "Main features: - Display of nearest user's messages";
+	public static final String HELP_TEXT = "This application allows to display nearest user's messages and add your own ones.";
 	
 	public static final String USER_NAME_TEXT_FIELD = "UserName";
 	public static final String PASSWORD_TEXT_FIELD = "Password";

@@ -40,7 +40,7 @@ public class MainMidlet extends MIDlet  {
 					GCState.setAuthToken(token);
 					goForwardWithMemorizing(m_tagsList);
 				}
-			}else if (arg0.getCommandType() == Command.BACK ){
+			}else if (arg0.getCommandType() == Command.BACK || arg1 instanceof TextForm){
 				goBackWithMemorizing();
 					
 			}else if (arg0.getLabel() == StringConstants.WRITE_MESSAGE_COMMAND ){
