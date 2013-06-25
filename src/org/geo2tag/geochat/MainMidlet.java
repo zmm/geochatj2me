@@ -12,6 +12,7 @@ import javax.microedition.midlet.MIDletStateChangeException;
 
 import org.geo2tag.geochat.utils.GCState;
 import org.geo2tag.geochat.utils.StringConstants;
+import org.geo2tag.geohandbook.TagsList;
 
 public class MainMidlet extends MIDlet  {
 
@@ -86,6 +87,8 @@ public class MainMidlet extends MIDlet  {
 			if ( current instanceof TagsList)
 				m_tagsList.stopTagsListUpdate();
 			m_display.setCurrent(newForm);
+			if ( newForm instanceof TagsList)
+				m_tagsList.startTagsListUpdate();
 			System.out.println(m_stack.toString());
 		}
 	}; 
